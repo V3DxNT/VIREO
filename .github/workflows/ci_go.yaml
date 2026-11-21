@@ -1,0 +1,110 @@
+name : Go Check
+
+on :
+  pull_request:
+    branches:
+      - main
+
+    paths:
+      - apps/scraper/**
+      - .github/workflows/ci_go.yaml
+
+  workflow_dispatch:
+  
+defaults:
+  run:
+    working-directory: ./apps/scraper
+
+jobs:
+
+  Format :
+    runs-on: ubuntu-latest
+    steps :
+      - name: Checkout-Repo
+        uses : actions/checkout@v4
+      - name : Configure Go
+        uses : actions/setup-go@v7
+        with : 
+          go-version-file : "apps/scraper/go.mod"
+          cache : true
+          cache-dependency-path : apps/scraper/go.sum
+
+      - name : Format 
+        run : test -z "$(gofmt -l .)"
+
+  Vet : 
+    runs-on: ubuntu-latest
+    steps:
+      - name : CheckoutRepo
+        uses : actions/checkout@v4
+      - name : Configure Go
+        uses : actions/setup-go@v7
+        with :
+          go-version-file: 'apps/scraper/go.mod'
+          cache : true
+          cache-dependency-path: apps/scraper/go.sum
+      
+      - name : RunTime
+        run : go vet ./...
+
+  Tidy : 
+    runs-on: ubuntu-latest
+    steps:
+      - name : CheckoutRepo
+        uses : actions/checkout@v4
+      - name : Configure Go
+        uses : actions/setup-go@v7
+        with :
+          go-version-file: 'apps/scraper/go.mod'
+          cache : true
+          cache-dependency-path: apps/scraper/go.sum
+      
+      - name : RunTime
+        run : go mod tidy -diff
+
+  Test : 
+    runs-on: ubuntu-latest
+    steps:
+      - name : CheckoutRepo
+        uses : actions/checkout@v4
+      - name : Configure Go
+        uses : actions/setup-go@v7
+        with :
+          go-version-file: 'apps/scraper/go.mod'
+          cache : true
+          cache-dependency-path: apps/scraper/go.sum
+      
+      - name : Test
+        run : go test ./...
+
+  Race : 
+    runs-on: ubuntu-latest
+    steps:
+      - name : CheckoutRepo
+        uses : actions/checkout@v4
+      - name : Configure Go
+        uses : actions/setup-go@v7
+        with :
+          go-version-file: 'apps/scraper/go.mod'
+          cache : true
+          cache-dependency-path: apps/scraper/go.sum
+      
+      - name : RunTime
+        run : go test -race ./...
+    needs : Test
+
+
+  Build : 
+    runs-on: ubuntu-latest
+    steps:
+      - name : CheckoutRepo
+        uses : actions/checkout@v4
+      - name : Configure Go
+        uses : actions/setup-go@v7
+        with :
+          go-version-file: 'apps/scraper/go.mod'
+          cache : true
+          cache-dependency-path: apps/scraper/go.sum
+
+      - name : RunTime
+        run : go build -o vireo .
