@@ -1,7 +1,7 @@
 {
-    "name":"vireo-workspace",
-    "private" : true,
-    "workspaces":[
+    "name": "vireo-workspace",
+    "private": true,
+    "workspaces": [
         "apps/api",
         "apps/web",
         "packages/*"
@@ -9,7 +9,11 @@
     "scripts": {
         "li": "npm run lint --workspaces --if-present",
         "te": "npm run test --workspaces --if-present",
-        "ts-check" : "npm run tsc --workspace=apps/api && npm run tsc --workspace=apps/web",
-        "nxt-build" : "npm run build --workspace=apps/web"
+        "ts-check": "npm run tsc --workspace=apps/api && npm run tsc --workspace=apps/web",
+        "nxt-build": "npm run build --workspace=apps/web"
+    },
+    "devDependencies": {
+        "concurrently": "^10.0.7",
+        "prettier": "^3.10.1"
     }
 }
