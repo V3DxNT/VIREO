@@ -1,0 +1,102 @@
+name : Node Check
+on : 
+  pull_request : 
+    branches : 
+      - main
+    paths : 
+      - apps/api/**
+      - apps/web/**
+      - packages/**
+      - package.json
+      - package-lock.json
+      - .github/workflows/ci_node.yaml
+  workflow_dispatch : 
+
+jobs :
+
+  Pretty :
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout-Repo
+        uses: actions/checkout@v4
+      - name : Configure-Node
+        uses : actions/setup-node@v7.1.0
+        with :
+          node-version : 22
+          cache : npm
+
+      - name : Install-Dep
+        run : npm ci
+
+      - name: Pretty
+        run : npx prettier . -c 
+
+  TypeScript :
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout-Repo
+        uses: actions/checkout@v4
+      - name : Configure-Node
+        uses : actions/setup-node@v7.1.0
+        with :
+          node-version : 22
+          cache : npm
+
+      - name : Install-Dep
+        run : npm ci
+
+      - name: TS
+        run : npm run ts-check
+
+
+  Lint :
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout-Repo
+        uses: actions/checkout@v4
+      - name : Configure-Node
+        uses : actions/setup-node@v7.1.0
+        with :
+          node-version : 22
+          cache : npm
+
+      - name : Install-Dep
+        run : npm ci
+
+      - name: Lint
+        run : npm run li
+
+  Test :
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout-Repo
+        uses: actions/checkout@v4
+
+      - name : Configure-Node
+        uses : actions/setup-node@v7.1.0
+        with :
+          node-version : 22
+          cache : npm
+
+      - name : Install-Dep
+        run : npm ci
+
+      - name : Tests
+        run : npm run te 
+
+  Build :
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout-Repo
+        uses: actions/checkout@v4
+      - name : Configure-Node
+        uses : actions/setup-node@v7.1.0
+        with :
+          node-version : 22
+          cache : npm
+
+      - name : Install-Dep
+        run : npm ci
+
+      - name: ProdBuild
+        run : npm run nxt-build
