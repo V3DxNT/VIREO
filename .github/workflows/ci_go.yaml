@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps :
       - name: Checkout-Repo
-        uses : actions/checkout@v4
+        uses : actions/checkout@v7
       - name : Configure Go
         uses : actions/setup-go@v7
         with : 
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name : CheckoutRepo
-        uses : actions/checkout@v4
+        uses : actions/checkout@v7
       - name : Configure Go
         uses : actions/setup-go@v7
         with :
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name : CheckoutRepo
-        uses : actions/checkout@v4
+        uses : actions/checkout@v7
       - name : Configure Go
         uses : actions/setup-go@v7
         with :
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name : CheckoutRepo
-        uses : actions/checkout@v4
+        uses : actions/checkout@v7
       - name : Configure Go
         uses : actions/setup-go@v7
         with :
@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name : CheckoutRepo
-        uses : actions/checkout@v4
+        uses : actions/checkout@v7
       - name : Configure Go
         uses : actions/setup-go@v7
         with :
@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name : CheckoutRepo
-        uses : actions/checkout@v4
+        uses : actions/checkout@v7
       - name : Configure Go
         uses : actions/setup-go@v7
         with :
